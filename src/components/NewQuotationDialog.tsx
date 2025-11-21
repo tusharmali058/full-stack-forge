@@ -10,8 +10,8 @@ import { z } from "zod";
 
 const quotationSchema = z.object({
   customerName: z.string().trim().min(1, "Customer name is required").max(200),
-  customerEmail: z.string().email("Invalid email").max(255).optional().or(z.literal("")),
-  customerPhone: z.string().trim().max(50).optional(),
+  customerEmail: z.union([z.literal(""), z.string().email("Invalid email").max(255)]),
+  customerPhone: z.union([z.literal(""), z.string().trim().max(50)]),
   destination: z.string().trim().min(1, "Destination is required").max(200),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().min(1, "End date is required"),
